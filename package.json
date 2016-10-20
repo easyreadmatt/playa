@@ -1,0 +1,16 @@
+{
+  "name": "playa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors-cli": "^1.0.7",
+    "loading-cli": "^1.0.2",
+    "superagent": "^2.3.0"
+  }
+}
