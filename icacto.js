@@ -108,16 +108,16 @@ var icacto = {
         }.bind(this))
     }
   },
-  generateNextMove: function() {
+  generateNextMove: function(board, playername, callback) {
     load.text = 'Doing silly random move thing';
     var x, y;
     var position = 'something'
     while(position !== null) {
       x = Math.floor(Math.random() * 3);
       y = Math.floor(Math.random() * 3);
-      position = this.game.board[y][x]
+      position = board[y][x]
     }
-    return {x: x, y: y}
+    callback({x: x, y: y})
   },
   run () {
     load.start();
@@ -149,9 +149,11 @@ var icacto = {
             }.bind(this))
           }.bind(this), timeout);
         } else {
-          this.makePlay(this.generateNextMove(), function(err, result) {
-            if(err) return console.error(err);
-            this.run();
+          this.generateNextMove(this.game.board, this.user.name, function(move) {
+            this.makePlay(move, function(err, result) {
+              if(err) return console.error(err);
+              this.run();
+            }.bind(this))
           }.bind(this))
         }
       }
