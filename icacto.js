@@ -2,6 +2,7 @@ var request = require('superagent');
 var loading =  require('loading-cli');
 var load = loading("Starting...")
 var timeout = 1000;
+var color = require('colors-cli')
 
 // load.start();
 
@@ -17,7 +18,10 @@ var icacto = {
     this.token = token;
     this.host = host;
     if(this.token) {
-      this.getUser(callback);
+      this.getUser(function(err, user) {
+        console.log( color.blue(user.name+' -- '+user.token) )
+        callback(err, user)
+      });
     } else {
       this.createPlayer(callback);
     }
@@ -33,6 +37,7 @@ var icacto = {
         if(status === 'success') {
           this.user = res.body.data
           this.token = this.user.token
+          console.log( color.red(this.user.name+' -- '+this.user.token) )
           load.text = 'Successfully created '+this.user.name
           return callback(undefined, this.user);
         } else {
