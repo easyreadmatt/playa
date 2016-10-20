@@ -114,13 +114,18 @@ var icacto = {
     }
   },
   generateNextMove: function(board, playername, callback) {
-    load.text = 'Doing silly random move thing';
+    load.text = 'Doing silly random move thing with preference for first two cols/rows';
     var x, y;
     var position = 'something'
-    while(position !== null) {
-      x = Math.floor(Math.random() * 3);
-      y = Math.floor(Math.random() * 3);
-      position = board[y][x]
+    if(board[1][1] == null) {
+      x = 1;
+      y = 1;
+    } else {
+      while(position !== null) {
+        x = Math.floor(Math.random() * 3);
+        y = Math.floor(Math.random() * 3);
+        position = board[y][x]
+      }
     }
     callback({x: x, y: y})
   },

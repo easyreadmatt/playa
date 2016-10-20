@@ -1,5 +1,5 @@
-// const host = 'https://icacto.herokuapp.com';
-const host = 'http://localhost:3000';
+const host = 'https://icacto.herokuapp.com';
+// const host = 'http://localhost:3000';
 
 var icacto = require('./icacto');
 
