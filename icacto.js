@@ -117,14 +117,60 @@ var icacto = {
     load.text = 'Doing silly random move thing with preference for first two cols/rows';
     var x, y;
     var position = 'something'
-    if(board[1][1] == null) {
-      x = 1;
-      y = 1;
+    // count spaces taken
+    var totalTaken = 0;
+    for(var i = 0; i < 3; i ++) {
+      for(var j = 0; j < 3; j ++) {
+        if(board[j][i]!==null) totalTaken++;
+      }
+    }
+    if(totalTaken % 2 == 0) {
+      // offensive strategy
+      if(totalTaken == 0) {
+        // first move, grab a corner
+        x = 0;
+        y = 0;
+      } else if(totalTaken == 2) {
+        // grab another corner
+        if(board[2][2]==null) {
+          x = 2;
+          y = 2;
+        } else {
+          x = 2;
+          y = 0;
+        }
+      } else if(totalTaken == 4) {
+        if(board[2][0]==null) {
+          x = 0;
+          y = 2;
+        } else {
+          x = 2;
+          y = 0;
+        }
+      } else if(totalTaken == 6) {
+        if(board[1][1]==null) {
+          x = 1;
+          y = 1;
+        } else if(board[1][0]==null) {
+          x = 0;
+          y = 1;
+        } else if(board[0][1]==null) {
+          x = 1;
+          y = 0;
+        }
+      }
     } else {
-      while(position !== null) {
-        x = Math.floor(Math.random() * 3);
-        y = Math.floor(Math.random() * 3);
-        position = board[y][x]
+      // defensive strategy
+      var position = true;
+      if(board[1][1]==null) {
+        x = 1;
+        y = 1;
+      } else {
+        while(position!==null) {
+          x = Math.floor(Math.random() * 3);
+          y = Math.floor(Math.random() * 3);
+          position = board[y][x];
+        }
       }
     }
     callback({x: x, y: y})
